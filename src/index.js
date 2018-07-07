@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import AppFrame from './containers/AppFrame';
 import Home from './containers/Home';
+import EventList from './containers/EventList';
 import EventDetail from './containers/EventDetail';
 import { Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -19,6 +20,7 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <AppFrame>
         <Route exact path="/" component={Home} />
+        <Route exact path="/events/" component={EventList} />
         <Route path="/events/:id" component={EventDetail} />
       </AppFrame>
     </ConnectedRouter>
