@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import HomeEventCard from './HomeEventCard';
 
 export default class Home extends Component {
   constructor(props) {
@@ -10,20 +11,18 @@ export default class Home extends Component {
     console.log('FNIT');
     console.log(this.props.events);
     return (
-      <table>
-        <tbody>
-          <tr>
-            <th>Event</th>
-          </tr>
-          {this.props.events.map(event => {
-            return (
-              <tr>
-                <td>{event.title}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th>Event</th>
+            </tr>
+            {this.props.events.map(event => {
+              return <HomeEventCard event={event} />;
+            })}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
