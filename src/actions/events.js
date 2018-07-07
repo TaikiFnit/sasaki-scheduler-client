@@ -1,3 +1,5 @@
+import { base_url } from './server_info';
+
 export const REQUEST_EVENTS = 'REQUEST_EVENTS';
 function requestEvents() {
   return {
@@ -17,7 +19,7 @@ export function fetchEvents() {
   return function(dispatch) {
     dispatch(requestEvents());
 
-    return fetch('http://localhost:8765/events/')
+    return fetch(base_url + '/events/')
       .then(response => response.json())
       .then(json => dispatch(receiveEvents(json)));
   };
