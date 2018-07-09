@@ -59,7 +59,9 @@ function HomeEventCard(props) {
           </Table>
         </CardContent>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <a href={'/events/' + event.id}>
+            <Button size="small">See Detail</Button>
+          </a>
         </CardActions>
       </Card>
     </div>

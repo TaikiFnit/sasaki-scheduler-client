@@ -33,7 +33,7 @@ class AppFrame extends Component {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="title" color="inherit">
-              Title
+              Sasaki Scheduler
             </Typography>
           </Toolbar>
         </AppBar>
