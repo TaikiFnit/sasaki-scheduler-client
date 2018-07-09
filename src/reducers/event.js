@@ -1,7 +1,7 @@
 import { REQUEST_EVENT, RECEIVE_EVENT } from '../actions/event.js';
 
 const initialState = {
-  event: [],
+  event: {},
   isFetching: false
 };
 
