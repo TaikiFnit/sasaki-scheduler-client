@@ -29,17 +29,38 @@ const styles = {
 };
 
 class AppFrame extends Component {
+  state = {
+    anchorEl: null
+  };
+
   constructor(props) {
     super(props);
     this.responseGoogle = this.responseGoogle.bind(this);
     this.classes = props.classes;
+    this.handleClick = this.handleClick.bind(this);
+    this.props.authValidation(this.props.auth.auth);
   }
+
+  handleClick = target => {
+    this.setState({ anchorEl: target.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  handleLogout = () => {
+    this.setState({ anchorEl: null });
+    this.props.logout();
+  };
 
   responseGoogle(response) {
     this.props.receiveResponseGoogle(response);
   }
 
   render() {
+    const { anchorEl } = this.state;
+    console.log(anchorEl);
     const auth = this.props.auth.auth;
     const Login =
       Object.keys(auth).length === 0 ? (
@@ -50,11 +71,24 @@ class AppFrame extends Component {
           onFailure={this.responseGoogle}
         />
       ) : (
-        <Avatar
-          alt={auth.profileObj.name}
-          src={auth.profileObj.imageUrl}
-          className={this.classes.avatar}
-        />
+        <div>
+          <Avatar
+            alt={auth.profileObj.name}
+            src={auth.profileObj.imageUrl}
+            className={this.classes.avatar}
+            onClick={this.handleClick}
+          />
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+          >
+            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+            <MenuItem onClick={this.handleClose}>My account</MenuItem>
+            <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+          </Menu>
+        </div>
       );
     return (
       <div style={styles.root}>

@@ -41,3 +41,61 @@ export function receiveResponseGoogle(auth) {
       .then(json => dispatch(receiveStoreAuth(json)));
   };
 }
+
+export const LOGOUT = 'LOGOUT';
+export function logout() {
+  return {
+    type: LOGOUT,
+    isSynced: false,
+    isSyncing: false,
+    auth: {}
+  };
+}
+
+export const REQUEST_AUTH_VALIDATION = 'REQUEST_AUTH_VALIDATION';
+function requestAuthValidation() {
+  console.log('request auth validation');
+  return {
+    type: REQUEST_AUTH_VALIDATION,
+    isSynced: false,
+    isSyncing: true
+  };
+}
+
+export const RECEIVE_AUTH_VALIDATION = 'RECEIVE_AUTH_VALIDATION';
+function receiveAuthValidation(json) {
+  if ('error' in json) {
+    console.log('invalid access token');
+  } else {
+    console.log('valid access token');
+  }
+
+  const results =
+    'error' in json
+      ? {
+          isSynced: false,
+          auth: {}
+        }
+      : {
+          isSynced: true
+        };
+
+  return {
+    type: RECEIVE_AUTH_VALIDATION,
+    isSyncing: true,
+    ...results
+  };
+}
+
+export function authValidation(auth) {
+  return dispatch => {
+    dispatch(requestAuthValidation());
+
+    return fetch(
+      'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' +
+        auth.accessToken
+    )
+      .then(response => response.json())
+      .then(json => dispatch(receiveAuthValidation(json)));
+  };
+}
