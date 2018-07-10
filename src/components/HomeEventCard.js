@@ -32,7 +32,7 @@ const styles = {
 };
 
 function HomeEventCard(props) {
-  const { classes, event } = props;
+  const { classes, event, pushToEvent } = props;
   return (
     <div>
       <Card className={classes.card}>
@@ -59,9 +59,9 @@ function HomeEventCard(props) {
           </Table>
         </CardContent>
         <CardActions>
-          <a href={'/events/' + event.id}>
-            <Button size="small">See Detail</Button>
-          </a>
+          <Button size="small" onClick={() => pushToEvent(event.id)}>
+            See Detail
+          </Button>
         </CardActions>
       </Card>
     </div>

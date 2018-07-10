@@ -8,12 +8,13 @@ export default class Home extends Component {
   }
 
   render() {
-    console.log('FNIT');
-    console.log(this.props.events);
+    const { events, router } = this.props;
     return (
       <div>
-        {this.props.events.map(event => {
-          return <HomeEventCard event={event} />;
+        {events.events.map(event => {
+          return (
+            <HomeEventCard event={event} pushToEvent={this.props.pushToEvent} />
+          );
         })}
       </div>
     );
