@@ -6,22 +6,25 @@ import Clear from '@material-ui/icons/Clear';
 import ChangeHistory from '@material-ui/icons/ChangeHistory';
 import PanoramaFishEye from '@material-ui/icons/PanoramaFishEye';
 
-export default class IconLabelTabs extends React.Component {
-  state = {
-    value: 0
-  };
+export default class RegisterEventDateForm extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  handleChange = (event, value) => {
-    this.setState({ value });
+  handleChange = (event, changedChoice) => {
+    if (this.props.choice !== changedChoice) {
+      if (this.props.dateId !== null) {
+        this.props.removeEventDateUser(this.props.dateId);
+      }
+
+      this.props.addEventDateUser(changedChoice);
+    }
   };
 
   render() {
     return (
       <Tabs
-        value={this.state.value}
+        value={this.props.choice}
         onChange={this.handleChange}
         fullWidth
         indicatorColor="secondary"

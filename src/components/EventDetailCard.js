@@ -13,7 +13,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import IconLabelTabs from './IconLabelTabs';
+import RegisterEventDateForm from '../containers/RegisterEventDateForm';
 
 const styles = {
   card: {
@@ -33,13 +33,17 @@ const styles = {
   },
   pos: {
     marginBottom: 12
+  },
+  root: {
+    width: '80%',
+    margin: '60px auto'
   }
 };
 
 function EventDetailCard(props) {
   const { classes, event } = props;
   return (
-    <div>
+    <div className={classes.root}>
       <Card className={classes.card}>
         <CardContent>
           <Typography className={classes.type} color="textSecondary">
@@ -66,11 +70,21 @@ function EventDetailCard(props) {
           <Table className={classes.table}>
             <TableBody>
               {event.event_dates.map(date => {
+                const myChoice = date.event_date_users.filter((item, index) => {
+                  if (item.user_id == 1) {
+                    return true;
+                  }
+                });
+
+                const status =
+                  myChoice.length == 0 ? false : myChoice[0].status;
+                const date_id = myChoice.length == 0 ? null : myChoice[0].id;
+
                 return (
                   <TableRow>
                     <TableCell>{date.prospective_date}</TableCell>
                     <TableCell>
-                      <IconLabelTabs />
+                      <RegisterEventDateForm status={status} dateId={date_id} />
                     </TableCell>
                   </TableRow>
                 );

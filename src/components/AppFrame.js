@@ -68,7 +68,9 @@ class AppFrame extends Component {
           clientId="95922334177-ejrsepf4iqenbjfsv4n87hrotvf224dc.apps.googleusercontent.com"
           buttonText="Login"
           onSuccess={this.responseGoogle}
-          onFailure={this.responseGoogle}
+          onFailure={() => {
+            alert('Failure to Login.');
+          }}
         />
       ) : (
         <div>

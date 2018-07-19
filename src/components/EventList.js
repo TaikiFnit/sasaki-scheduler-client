@@ -8,8 +8,6 @@ export default class EventList extends Component {
   }
 
   render() {
-    console.log('FNIT');
-    console.log(this.props.events);
     return (
       <div>
         {this.props.events.map(event => {
