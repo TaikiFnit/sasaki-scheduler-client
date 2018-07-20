@@ -38,7 +38,9 @@ class AppFrame extends Component {
     this.responseGoogle = this.responseGoogle.bind(this);
     this.classes = props.classes;
     this.handleClick = this.handleClick.bind(this);
-    this.props.authValidation(this.props.auth.auth);
+    if (Object.keys(this.props.auth.auth).length !== 0) {
+      this.props.authValidation(this.props.auth.auth);
+    }
   }
 
   handleClick = target => {
@@ -60,7 +62,6 @@ class AppFrame extends Component {
 
   render() {
     const { anchorEl } = this.state;
-    console.log(anchorEl);
     const auth = this.props.auth.auth;
     const Login =
       Object.keys(auth).length === 0 ? (

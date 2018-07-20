@@ -41,7 +41,9 @@ const styles = {
 };
 
 function EventDetailCard(props) {
-  const { classes, event } = props;
+  const { classes, event, auth } = props;
+  console.log('FNIFNIF TOOMOTAKA');
+  console.log(auth);
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
@@ -70,21 +72,27 @@ function EventDetailCard(props) {
           <Table className={classes.table}>
             <TableBody>
               {event.event_dates.map(date => {
+                const user_id = 'id' in auth.user ? auth.user.id : false;
                 const myChoice = date.event_date_users.filter((item, index) => {
-                  if (item.user_id == 1) {
+                  if (item.user_id === user_id) {
                     return true;
                   }
                 });
 
                 const status =
                   myChoice.length == 0 ? false : myChoice[0].status;
-                const date_id = myChoice.length == 0 ? null : myChoice[0].id;
+                const evenDateUserId =
+                  myChoice.length == 0 ? null : myChoice[0].id;
 
                 return (
                   <TableRow>
                     <TableCell>{date.prospective_date}</TableCell>
                     <TableCell>
-                      <RegisterEventDateForm status={status} dateId={date_id} />
+                      <RegisterEventDateForm
+                        status={status}
+                        eventDateId={date.id}
+                        eventDateUserId={evenDateUserId}
+                      />
                     </TableCell>
                   </TableRow>
                 );

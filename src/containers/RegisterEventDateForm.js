@@ -6,21 +6,34 @@ import {
 } from '../actions/event_date_users';
 import { push } from 'react-router-redux';
 
-function mapStateToProps(props) {
-  return {};
+function mapStateToProps({ auth, event }) {
+  return { auth: auth, eventId: event.event.id };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    addEventDateUser(newStatus) {
-      dispatch(addEventDateUser(newStatus));
+    addEventDateUser(eventDateId, newStatus, auth, eventId) {
+      if (!('accessToken' in auth)) {
+        console.log('Invalid auth');
+        return;
+      }
+
+      dispatch(
+        addEventDateUser(eventDateId, newStatus, auth.accessToken, eventId)
+      );
     },
-    addEventDateUser(id) {
-      dispatch(removeEventDateUser(id));
+    removeEventDateUser(eventDateUserId, auth, eventId) {
+      if (!('accessToken' in auth)) {
+        console.log('Invalid auth');
+        return;
+      }
+
+      dispatch(removeEventDateUser(eventDateUserId, auth.accessToken, eventId));
     }
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  RegisterEventDateForm
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RegisterEventDateForm);

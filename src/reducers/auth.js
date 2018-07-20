@@ -7,7 +7,10 @@ import {
 } from '../actions/auth.js';
 
 const initialState = {
-  auth: {}
+  auth: {},
+  user: {},
+  isSynced: false,
+  isSyncing: false
 };
 
 export default function authReducer(state = initialState, action) {
@@ -23,14 +26,16 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         isSynced: action.isSynced,
-        isSyncing: action.isSyncing
+        isSyncing: action.isSyncing,
+        user: action.user
       };
     case LOGOUT:
       return {
         ...state,
         isSynced: action.isSynced,
         isSyncing: action.isSyncing,
-        auth: action.auth
+        auth: action.auth,
+        user: action.user
       };
     case REQUEST_AUTH_VALIDATION:
       return {

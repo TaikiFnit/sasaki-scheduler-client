@@ -28,13 +28,17 @@ const styles = {
   },
   pos: {
     marginBottom: 12
+  },
+  root: {
+    width: '80%',
+    margin: '60px auto'
   }
 };
 
 function HomeEventCard(props) {
   const { classes, event, pushToEvent } = props;
   return (
-    <div>
+    <div className={classes.root}>
       <Card className={classes.card}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary">

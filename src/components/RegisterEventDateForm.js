@@ -12,19 +12,28 @@ export default class RegisterEventDateForm extends React.Component {
   }
 
   handleChange = (event, changedChoice) => {
-    if (this.props.choice !== changedChoice) {
-      if (this.props.dateId !== null) {
-        this.props.removeEventDateUser(this.props.dateId);
+    if (this.props.status !== changedChoice) {
+      if (this.props.eventDateUserId !== null) {
+        this.props.removeEventDateUser(
+          this.props.eventDateUserId,
+          this.props.auth.auth,
+          this.props.evenId
+        );
       }
 
-      this.props.addEventDateUser(changedChoice);
+      this.props.addEventDateUser(
+        this.props.eventDateId,
+        changedChoice,
+        this.props.auth.auth,
+        this.props.eventId
+      );
     }
   };
 
   render() {
     return (
       <Tabs
-        value={this.props.choice}
+        value={this.props.status}
         onChange={this.handleChange}
         fullWidth
         indicatorColor="secondary"

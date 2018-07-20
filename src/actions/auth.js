@@ -13,10 +13,12 @@ function requestStoreAuth(auth) {
 
 export const RESPONSE_STORE_AUTH = 'RESPONSE_STORE_AUTH';
 function receiveStoreAuth(json) {
+  const user = { user: json.status ? json.user : {} };
   return {
     type: RESPONSE_STORE_AUTH,
     isSynced: json.status,
-    isSyncing: false
+    isSyncing: false,
+    ...user
   };
 }
 
@@ -48,7 +50,8 @@ export function logout() {
     type: LOGOUT,
     isSynced: false,
     isSyncing: false,
-    auth: {}
+    auth: {},
+    user: {}
   };
 }
 

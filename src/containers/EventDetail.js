@@ -4,8 +4,8 @@ import { fetchEvent } from '../actions/event';
 import { push } from 'react-router-redux';
 
 function mapStateToProps(props) {
-  const { event, router } = props;
-  return { event: event, router: router };
+  const { event, router, auth } = props;
+  return { event: event, router: router, auth: auth };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -16,4 +16,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventDetail);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EventDetail);
