@@ -45,11 +45,13 @@ export default function authReducer(state = initialState, action) {
       };
     case RECEIVE_AUTH_VALIDATION:
       const auth = 'auth' in action ? { auth: action.auth } : {};
+      const user = 'user' in action ? { user: action.user } : {};
       return {
         ...state,
         isSynced: action.isSynced,
         isSyncing: action.isSyncing,
-        ...auth
+        ...auth,
+        ...user
       };
     default:
       return state;

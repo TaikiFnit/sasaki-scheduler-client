@@ -6,18 +6,22 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
 import Table from '@material-ui/core/Table';
+import TableRow from '@material-ui/core/TableRow';
+import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 
 import RegisterEventDateForm from '../containers/RegisterEventDateForm';
 
 const styles = {
   card: {
     minWidth: 275
+  },
+  table: {
+    marginBottom: '40px'
   },
   bullet: {
     display: 'inline-block',
@@ -47,9 +51,16 @@ const styles = {
     paddingTop: '20px',
     paddingBottom: '20px'
   },
-  prospectiveRow: {
+  tableCell: {
     paddingTop: '15px',
-    paddingBottom: '10px'
+    paddingBottom: '15px'
+  },
+  endOfSection: {
+    marginBottom: '40px'
+  },
+  chip: {
+    margin: '6px',
+    background: '#EEEEEE'
   }
 };
 
@@ -79,8 +90,19 @@ function EventDetailCard(props) {
           <Typography color="textSecondary">
             開催場所: {event.locale}
           </Typography>
-          <Typography color="textSecondary" className={classes.typography}>
+          <Typography
+            color="textSecondary"
+            className={[classes.typography, classes.endOfSection]}
+          >
             入力期限日: {deadline.getFullYear()}/{deadline.getMonth()}/{deadline.getDate()}
+          </Typography>
+
+          <Typography
+            className={classes.typography}
+            variant="title"
+            component="h3"
+          >
+            出席登録
           </Typography>
 
           <Table className={classes.table}>
@@ -101,18 +123,70 @@ function EventDetailCard(props) {
 
                 return (
                   <TableRow className={classes.prospectiveRow}>
-                    <TableCell className={classes.prospectiveRow}>
+                    <TableCell className={classes.tableCell}>
                       <Typography className={classes.prospectiveDate}>
                         {pro_date.getMonth()}/{pro_date.getDate()}
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className={classes.tableCell}>
                       <RegisterEventDateForm
                         status={status}
                         eventDateId={date.id}
                         eventDateUserId={evenDateUserId}
                       />
                     </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+
+          <Typography
+            className={classes.typography}
+            variant="title"
+            component="h3"
+          >
+            出席状況
+          </Typography>
+
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell className={classes.tableCell}>日付</TableCell>
+                <TableCell className={classes.tableCell}>参加可</TableCell>
+                <TableCell className={classes.tableCell}>微妙/未定</TableCell>
+                <TableCell className={classes.tableCell}>参加不可</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {event.event_dates.map(date => {
+                console.log('FNIT');
+                console.log(date);
+
+                let usersGroupByStatus = [[], [], []];
+
+                date.event_date_users.forEach((elm, index, array) => {
+                  usersGroupByStatus[elm.status].push(elm);
+                });
+
+                const userChips = usersGroupByStatus.map(users => (
+                  <TableCell className={classes.tableCell}>
+                    {users.map(user => (
+                      <Chip
+                        avatar={<Avatar src={user.user.picture} />}
+                        label={user.user.name}
+                        className={classes.chip}
+                      />
+                    ))}
+                  </TableCell>
+                ));
+
+                console.log(userChips);
+
+                return (
+                  <TableRow>
+                    <TableCell className={classes.tableCell}>8/2</TableCell>
+                    {userChips}
                   </TableRow>
                 );
               })}

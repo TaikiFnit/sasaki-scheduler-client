@@ -76,16 +76,15 @@ function receiveAuthValidation(json) {
   const results =
     'error' in json
       ? {
-          isSynced: false,
-          auth: {}
+          auth: {},
+          user: {}
         }
-      : {
-          isSynced: true
-        };
+      : {};
 
   return {
     type: RECEIVE_AUTH_VALIDATION,
-    isSyncing: true,
+    isSynced: true,
+    isSyncing: false,
     ...results
   };
 }
