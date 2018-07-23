@@ -13,6 +13,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import Badge from '@material-ui/core/Badge';
 
 import RegisterEventDateForm from '../containers/RegisterEventDateForm';
 
@@ -21,7 +22,8 @@ const styles = {
     minWidth: 275
   },
   table: {
-    marginBottom: '40px'
+    marginBottom: '40px',
+    fontSize: '18px'
   },
   bullet: {
     display: 'inline-block',
@@ -34,6 +36,12 @@ const styles = {
   },
   typography: {
     marginBottom: 8
+  },
+  paragraph: {
+    fontSize: '18px'
+  },
+  heading: {
+    fontSize: '24px'
   },
   pos: {
     marginBottom: 12
@@ -48,12 +56,12 @@ const styles = {
     background: '#4CAF50',
     color: 'white',
     textAlign: 'center',
-    paddingTop: '20px',
-    paddingBottom: '20px'
+    padding: '10px'
   },
   tableCell: {
     paddingTop: '15px',
-    paddingBottom: '15px'
+    paddingBottom: '15px',
+    fontSize: '18px'
   },
   endOfSection: {
     marginBottom: '40px'
@@ -66,8 +74,6 @@ const styles = {
 
 function EventDetailCard(props) {
   const { classes, event, auth } = props;
-  console.log('FNIFNIF TOOMOTAKA');
-  console.log(auth);
   const deadline = new Date(event.deadline);
   return (
     <div className={classes.root}>
@@ -83,16 +89,26 @@ function EventDetailCard(props) {
           >
             {event.title}
           </Typography>
-          <Typography component="p" className={classes.typography}>
+          <Typography
+            component="p"
+            className={[classes.typography, classes.paragraph]}
+          >
             {event.description}
           </Typography>
 
-          <Typography color="textSecondary">
+          <Typography
+            color="textSecondary"
+            className={[classes.typography, classes.paragraph]}
+          >
             開催場所: {event.locale}
           </Typography>
           <Typography
             color="textSecondary"
-            className={[classes.typography, classes.endOfSection]}
+            className={[
+              classes.typography,
+              classes.endOfSection,
+              classes.paragraph
+            ]}
           >
             入力期限日: {deadline.getFullYear()}/{deadline.getMonth()}/{deadline.getDate()}
           </Typography>
@@ -154,16 +170,14 @@ function EventDetailCard(props) {
               <TableRow>
                 <TableCell className={classes.tableCell}>日付</TableCell>
                 <TableCell className={classes.tableCell}>参加可</TableCell>
-                <TableCell className={classes.tableCell}>微妙/未定</TableCell>
+                <TableCell className={classes.tableCell}>未定</TableCell>
                 <TableCell className={classes.tableCell}>参加不可</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {event.event_dates.map(date => {
-                console.log('FNIT');
-                console.log(date);
-
                 let usersGroupByStatus = [[], [], []];
+                const pro_date = new Date(date.prospective_date);
 
                 date.event_date_users.forEach((elm, index, array) => {
                   usersGroupByStatus[elm.status].push(elm);
@@ -181,11 +195,11 @@ function EventDetailCard(props) {
                   </TableCell>
                 ));
 
-                console.log(userChips);
-
                 return (
                   <TableRow>
-                    <TableCell className={classes.tableCell}>8/2</TableCell>
+                    <TableCell className={classes.tableCell}>
+                      {pro_date.getMonth()}/{pro_date.getDate()}
+                    </TableCell>
                     {userChips}
                   </TableRow>
                 );

@@ -15,6 +15,9 @@ import Menu from '@material-ui/core/Menu';
 import GoogleLogin from 'react-google-login';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
+
+import { Link } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -25,6 +28,18 @@ const styles = {
   },
   avatar: {
     margin: 10
+  },
+  appBar: {
+    background: '#00897B'
+  },
+  brand: {
+    marginTop: 9,
+    marginBottom: 9,
+    marginLeft: 3,
+    marginRight: 3
+  },
+  title: {
+    fontSize: '28px'
   }
 };
 
@@ -62,6 +77,7 @@ class AppFrame extends Component {
 
   render() {
     const { anchorEl } = this.state;
+    const { classes } = this.props;
     const auth = this.props.auth.auth;
     const Login =
       Object.keys(auth).length === 0 ? (
@@ -75,12 +91,9 @@ class AppFrame extends Component {
         />
       ) : (
         <div>
-          <Avatar
-            alt={auth.profileObj.name}
-            src={auth.profileObj.imageUrl}
-            className={this.classes.avatar}
-            onClick={this.handleClick}
-          />
+          <IconButton className={classes.avatar} onClick={this.handleClick}>
+            <Avatar alt={auth.profileObj.name} src={auth.profileObj.imageUrl} />
+          </IconButton>
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
@@ -95,15 +108,24 @@ class AppFrame extends Component {
       );
     return (
       <div style={styles.root}>
-        <AppBar position="static">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
-            <Typography
-              variant="title"
+            <Link to="/">
+              <IconButton className={classes.brand}>
+                <img src="/icon.svg" width="40" height="40" />
+              </IconButton>
+            </Link>
+
+            <Button
               color="inherit"
-              className={this.classes.flex}
+              className={[classes.flex, classes.title]}
+              onClick={this.props.pushToHome}
             >
-              Sasaki Scheduler
-            </Typography>
+              <Typography variant="title" color="inherit">
+                Sasaki Scheduler
+              </Typography>
+            </Button>
+
             {Login}
           </Toolbar>
         </AppBar>
