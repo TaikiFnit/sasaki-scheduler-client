@@ -52,9 +52,13 @@ function HomeEventCard(props) {
           <Table className={classes.table}>
             <TableBody>
               {event.event_dates.map(date => {
+                const d = new Date(date.prospective_date);
+
                 return (
                   <TableRow>
-                    <TableCell>{date.prospective_date}</TableCell>
+                    <TableCell>
+                      {d.getMonth()} / {d.getDate()}
+                    </TableCell>
                     <TableCell>{date.event_date_users.length}</TableCell>
                   </TableRow>
                 );

@@ -37,6 +37,19 @@ const styles = {
   root: {
     width: '80%',
     margin: '60px auto'
+  },
+  prospectiveDate: {
+    fontSize: '22px',
+    borderRadius: '100px',
+    background: '#4CAF50',
+    color: 'white',
+    textAlign: 'center',
+    paddingTop: '20px',
+    paddingBottom: '20px'
+  },
+  prospectiveRow: {
+    paddingTop: '15px',
+    paddingBottom: '10px'
   }
 };
 
@@ -44,6 +57,7 @@ function EventDetailCard(props) {
   const { classes, event, auth } = props;
   console.log('FNIFNIF TOOMOTAKA');
   console.log(auth);
+  const deadline = new Date(event.deadline);
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
@@ -66,7 +80,7 @@ function EventDetailCard(props) {
             開催場所: {event.locale}
           </Typography>
           <Typography color="textSecondary" className={classes.typography}>
-            入力期限日: {event.deadline}
+            入力期限日: {deadline.getFullYear()}/{deadline.getMonth()}/{deadline.getDate()}
           </Typography>
 
           <Table className={classes.table}>
@@ -83,10 +97,15 @@ function EventDetailCard(props) {
                   myChoice.length == 0 ? false : myChoice[0].status;
                 const evenDateUserId =
                   myChoice.length == 0 ? null : myChoice[0].id;
+                const pro_date = new Date(date.prospective_date);
 
                 return (
-                  <TableRow>
-                    <TableCell>{date.prospective_date}</TableCell>
+                  <TableRow className={classes.prospectiveRow}>
+                    <TableCell className={classes.prospectiveRow}>
+                      <Typography className={classes.prospectiveDate}>
+                        {pro_date.getMonth()}/{pro_date.getDate()}
+                      </Typography>
+                    </TableCell>
                     <TableCell>
                       <RegisterEventDateForm
                         status={status}
@@ -100,11 +119,6 @@ function EventDetailCard(props) {
             </TableBody>
           </Table>
         </CardContent>
-        <CardActions>
-          <a href={'/events/' + event.id}>
-            <Button size="small">See Detail</Button>
-          </a>
-        </CardActions>
       </Card>
     </div>
   );
