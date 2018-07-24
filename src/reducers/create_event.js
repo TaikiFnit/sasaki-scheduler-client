@@ -6,7 +6,15 @@ import {
 } from '../actions/create_event.js';
 
 const initialState = {
-  form: {},
+  form: {
+    title: '',
+    description: '',
+    locale: '',
+    event_type_id: 1,
+    dates: [],
+    user_ids: [],
+    deadline: ''
+  },
   eventTypes: [],
   users: [],
   isPosting: false,
@@ -17,6 +25,7 @@ export default function createEventReducer(state = initialState, action) {
   switch (action.type) {
     case GET_REQUEST_NEW_EVENT:
       return {
+        ...state,
         isFetching: true
       };
     case GET_RESPONSE_NEW_EVENT:

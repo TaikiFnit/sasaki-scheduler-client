@@ -13,7 +13,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import Badge from '@material-ui/core/Badge';
 
 import RegisterEventDateForm from '../containers/RegisterEventDateForm';
 

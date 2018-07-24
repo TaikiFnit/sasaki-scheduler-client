@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import CreateEvent from '../components/CreateEevnt';
+import CreateEvent from '../components/CreateEvent';
 import { createEvent, fetchCreateEventData } from '../actions/create_event';
 import { push } from 'react-router-redux';
 
@@ -21,6 +21,12 @@ function mapDispatchToProps(dispatch) {
       // formDataの加工
 
       dispatch(createEvent(formData, auth.accessToken));
+    },
+    handleFormChange: id => ev => {
+      const value = ev.target.value;
+      console.log(value);
+      console.log(id);
+      console.log(ev);
     }
   };
 }
