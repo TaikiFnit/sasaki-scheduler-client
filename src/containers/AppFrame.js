@@ -20,6 +20,9 @@ function mapDispatchToProps(dispatch) {
     },
     pushToHome() {
       dispatch(push('/'));
+    },
+    pushToCreateEvent() {
+      dispatch(push('/createEvent'));
     }
   };
 }

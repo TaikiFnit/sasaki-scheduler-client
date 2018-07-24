@@ -53,6 +53,8 @@ class AppFrame extends Component {
     this.responseGoogle = this.responseGoogle.bind(this);
     this.classes = props.classes;
     this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
     if (Object.keys(this.props.auth.auth).length !== 0) {
       this.props.authValidation(this.props.auth.auth);
     }
@@ -101,7 +103,14 @@ class AppFrame extends Component {
             onClose={this.handleClose}
           >
             <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-            <MenuItem onClick={this.handleClose}>My account</MenuItem>
+            <MenuItem
+              onClick={() => {
+                this.props.pushToCreateEvent();
+                this.handleClose();
+              }}
+            >
+              Create New Event
+            </MenuItem>
             <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
           </Menu>
         </div>

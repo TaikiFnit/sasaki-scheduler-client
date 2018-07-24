@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import AppFrame from './containers/AppFrame';
 import Home from './containers/Home';
+import CreateEvent from './containers/CreateEvent';
 import EventList from './containers/EventList';
 import EventDetail from './containers/EventDetail';
 import { Route, Switch } from 'react-router-dom';
@@ -27,6 +28,7 @@ ReactDOM.render(
         <ConnectedSwitch>
           <Route exact path="/" component={Home} />
           <Route exact path="/events/" component={EventList} />
+          <Route exact path="/createEvent" component={CreateEvent} />
           <Route path="/events/:id" component={EventDetail} />
         </ConnectedSwitch>
       </AppFrame>
