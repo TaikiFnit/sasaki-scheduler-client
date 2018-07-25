@@ -9,7 +9,7 @@ export default class EventDetail extends Component {
 
   render() {
     const eventCard =
-      Object.keys(this.props.event.event).length == 0 ? null : (
+      Object.keys(this.props.event.event).length === 0 ? null : (
         <EventDetailCard
           event={this.props.event.event}
           auth={this.props.auth}

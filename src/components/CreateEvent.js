@@ -14,6 +14,7 @@ import TableCell from '@material-ui/core/TableCell';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {
   card: {
@@ -79,6 +80,21 @@ class CreateEvent extends Component {
                 onChange={this.props.handleFormChange('description')}
                 margin="normal"
               />
+
+              <TextField
+                select
+                label="Event Type"
+                value={createEventData.form.event_type_id}
+                className={classes.textField}
+                onChange={this.props.handleFormChange('event_type_id')}
+                margin="normal"
+              >
+                {createEventData.eventTypes.map(eventType => (
+                  <MenuItem key={eventType.id} value={eventType.id}>
+                    {eventType.name}
+                  </MenuItem>
+                ))}
+              </TextField>
             </form>
           </CardContent>
         </Card>

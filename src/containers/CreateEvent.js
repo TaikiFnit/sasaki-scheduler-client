@@ -1,6 +1,10 @@
 import { connect } from 'react-redux';
 import CreateEvent from '../components/CreateEvent';
-import { createEvent, fetchCreateEventData } from '../actions/create_event';
+import {
+  createEvent,
+  fetchCreateEventData,
+  handleFormChange
+} from '../actions/create_event';
 import { push } from 'react-router-redux';
 
 function mapStateToProps({ router, auth, createEventData }) {
@@ -24,9 +28,10 @@ function mapDispatchToProps(dispatch) {
     },
     handleFormChange: id => ev => {
       const value = ev.target.value;
-      console.log(value);
       console.log(id);
-      console.log(ev);
+      console.log(value);
+
+      dispatch(handleFormChange(id, value));
     }
   };
 }

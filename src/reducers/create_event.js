@@ -2,7 +2,8 @@ import {
   POST_REQUEST_NEW_EVENT,
   POST_RESPONSE_NEW_EVENT,
   GET_REQUEST_NEW_EVENT,
-  GET_RESPONSE_NEW_EVENT
+  GET_RESPONSE_NEW_EVENT,
+  HANDLE_FORM_CHANGE
 } from '../actions/create_event.js';
 
 const initialState = {
@@ -50,6 +51,13 @@ export default function createEventReducer(state = initialState, action) {
         ...state,
         isFetching: false,
         isPosted: true
+      };
+    case HANDLE_FORM_CHANGE:
+      let form = state.form;
+      form[action.id] = action.value;
+      return {
+        ...state,
+        form
       };
     default:
       return state;

@@ -71,4 +71,12 @@ export function createEvent(formData, accessToken) {
       .then(json => dispatch(postResponseNewEvent(json)));
   };
 }
-POST_REQUEST_NEW_EVENT, POST_RESPONSE_NEW_EVENT;
+
+export const HANDLE_FORM_CHANGE = 'HANDLE_FORM_CHANGE';
+export function handleFormChange(id, value) {
+  return {
+    type: HANDLE_FORM_CHANGE,
+    id,
+    value
+  };
+}
