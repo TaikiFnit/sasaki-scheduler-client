@@ -57,8 +57,7 @@ function mapDispatchToProps(dispatch) {
       const user_ids = createEventData.users.map(user => user.id);
       const formData = { ...createEventData.form, user_ids };
 
-      console.log(formData);
-      //dispatch(createEvent(formData, accessToken));
+      dispatch(createEvent(formData));
     }
   };
 }

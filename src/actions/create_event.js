@@ -54,7 +54,7 @@ export function fetchCreateEventData() {
   };
 }
 
-export function createEvent(formData, accessToken) {
+export function createEvent(formData) {
   return function(dispatch) {
     dispatch(postRequestNewEvent());
 
@@ -63,13 +63,26 @@ export function createEvent(formData, accessToken) {
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
     };
-    const body = queryString.stringify({
-      ...formData
+
+    let transformed_dates = {};
+    formData.dates.forEach((date, index) => {
+      transformed_dates[`dates[${index}][prospective_date]`] =
+        date.prospective_date;
     });
+    const body = queryString.stringify(
+      {
+        ...formData,
+        ...transformed_dates,
+        dates: null
+      },
+      { arrayFormat: 'index' }
+    );
     const mode = 'cors';
 
-    return (base_url + '/events/add?access_token=' + accessToken,
-    {
+    console.log('stringify');
+    console.log(body);
+
+    return fetch(base_url + '/events/add', {
       method,
       headers,
       body,
