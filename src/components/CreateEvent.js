@@ -15,8 +15,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import Calendar from 'react-calendar';
+import Paper from '@material-ui/core/Paper';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
-const styles = {
+const styles = theme => ({
   card: {
     minWidth: 275
   },
@@ -36,8 +41,11 @@ const styles = {
   container: {
     display: 'flex',
     flexWrap: 'wrap'
+  },
+  chip: {
+    margin: theme.spacing.unit
   }
-};
+});
 
 class CreateEvent extends Component {
   constructor(props) {
@@ -95,6 +103,68 @@ class CreateEvent extends Component {
                   </MenuItem>
                 ))}
               </TextField>
+
+              <TextField
+                id="locale"
+                label="Locale"
+                className={classes.textField}
+                value={createEventData.form.locale}
+                onChange={this.props.handleFormChange('locale')}
+                margin="normal"
+              />
+              <TextField
+                id="deadline"
+                label="Register Deadline"
+                type="date"
+                InputLabelProps={{
+                  shrink: true
+                }}
+                className={classes.textField}
+                value={createEventData.form.deadline}
+                onChange={this.props.handleFormChange('deadline')}
+                margin="normal"
+              />
+              <Paper className={classes.root}>
+                {createEventData.form.dates.map((date, index) => (
+                  <Chip
+                    key={index}
+                    label={date.prospective_date}
+                    className={classes.chip}
+                    onDelete={this.props.handleFormArrayRemove('dates', index)}
+                  />
+                ))}
+              </Paper>
+
+              <Calendar onChange={this.props.handleDateChange} />
+
+              <FormGroup row>
+                {createEventData.users.map((user, index) => {
+                  return (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={user.checked}
+                          onChange={this.props.handleCheckbox(index)}
+                          color="primary"
+                        />
+                      }
+                      label={user.name}
+                    />
+                  );
+                })}
+              </FormGroup>
+
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                onClick={this.props.clickedCreate(
+                  this.props.createEventData,
+                  this.props.auth
+                )}
+              >
+                Create
+              </Button>
             </form>
           </CardContent>
         </Card>

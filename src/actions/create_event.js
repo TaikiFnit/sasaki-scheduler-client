@@ -24,12 +24,20 @@ function getRequestNewEvent() {
 
 export const GET_RESPONSE_NEW_EVENT = 'GET_RESPONSE_NEW_EVENT';
 function getResponseNewEvent(json) {
-  console.log('getResponseNewEvent');
-  const res =
-    json.status == true
-      ? { eventTypes: json.event_types, users: json.users }
-      : {};
+  const users =
+    json.status === true
+      ? json.users.map(user => {
+          user['checked'] = false;
+          return user;
+        })
+      : [];
 
+  const res =
+    json.status == true ? { eventTypes: json.event_types, users } : {};
+
+  if (json.status === true && res.users.length !== 0) {
+    const users = res.users.map(user => {});
+  }
   return {
     type: GET_RESPONSE_NEW_EVENT,
     ...res
@@ -78,5 +86,41 @@ export function handleFormChange(id, value) {
     type: HANDLE_FORM_CHANGE,
     id,
     value
+  };
+}
+
+export const HANDLE_FORM_ARRAY_CHANGE = 'HANDLE_FORM_ARRAY_CHANGE';
+export function handleFormArrayChange(id, value) {
+  return {
+    type: HANDLE_FORM_ARRAY_CHANGE,
+    id,
+    value
+  };
+}
+
+export const HANDLE_FORM_ARRAY_ADD = 'HANDLE_FORM_ARRAY_ADD';
+export function handleFormArrayAdd(id, value) {
+  return {
+    type: HANDLE_FORM_ARRAY_ADD,
+    id,
+    value
+  };
+}
+
+export const HANDLE_FORM_ARRAY_REMOVE = 'HANDLE_FORM_ARRAY_REMOVE';
+export function handleFormArrayRemove(id, index) {
+  return {
+    type: HANDLE_FORM_ARRAY_REMOVE,
+    id,
+    index
+  };
+}
+
+export const HANDLE_CHECKBOX = 'HANDLE_CHECKBOX';
+export function handleCheckbox(index, checked) {
+  return {
+    type: HANDLE_CHECKBOX,
+    index,
+    checked
   };
 }

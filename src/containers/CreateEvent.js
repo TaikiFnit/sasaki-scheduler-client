@@ -3,7 +3,10 @@ import CreateEvent from '../components/CreateEvent';
 import {
   createEvent,
   fetchCreateEventData,
-  handleFormChange
+  handleFormChange,
+  handleFormArrayAdd,
+  handleFormArrayRemove,
+  handleCheckbox
 } from '../actions/create_event';
 import { push } from 'react-router-redux';
 
@@ -23,15 +26,39 @@ function mapDispatchToProps(dispatch) {
       }
 
       // formDataの加工
-
       dispatch(createEvent(formData, auth.accessToken));
     },
     handleFormChange: id => ev => {
       const value = ev.target.value;
-      console.log(id);
-      console.log(value);
 
       dispatch(handleFormChange(id, value));
+    },
+    handleDateChange: value => {
+      const date = {
+        prospective_date: `${value.getFullYear()}/${value.getMonth()}/${value.getDate()}`
+      };
+      dispatch(handleFormArrayAdd('dates', date));
+    },
+    handleFormArrayRemove: (id, index) => ev => {
+      dispatch(handleFormArrayRemove(id, index));
+    },
+    handleFromArrayAdd: (id, obj) => ev => {
+      dispatch(handleFormArrayAdd(id, obj));
+    },
+    handleCheckbox: userId => ev => {
+      console.log(userId);
+      console.log(ev.target.checked);
+      dispatch(handleCheckbox(userId, ev.target.checked));
+    },
+    clickedCreate: (createEventData, auth) => ev => {
+      console.log(createEventData);
+      console.log(auth);
+
+      const user_ids = createEventData.users.map(user => user.id);
+      const formData = { ...createEventData.form, user_ids };
+
+      console.log(formData);
+      //dispatch(createEvent(formData, accessToken));
     }
   };
 }

@@ -3,7 +3,10 @@ import {
   POST_RESPONSE_NEW_EVENT,
   GET_REQUEST_NEW_EVENT,
   GET_RESPONSE_NEW_EVENT,
-  HANDLE_FORM_CHANGE
+  HANDLE_FORM_CHANGE,
+  HANDLE_FORM_ARRAY_ADD,
+  HANDLE_FORM_ARRAY_REMOVE,
+  HANDLE_CHECKBOX
 } from '../actions/create_event.js';
 
 const initialState = {
@@ -58,6 +61,34 @@ export default function createEventReducer(state = initialState, action) {
       return {
         ...state,
         form
+      };
+    case HANDLE_FORM_ARRAY_ADD:
+      let array = state.form[action.id];
+      array.push(action.value);
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          [action.id]: array
+        }
+      };
+
+    case HANDLE_FORM_ARRAY_REMOVE:
+      let r_array = state.form[action.id];
+      r_array.splice(action.index, 1);
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          [action.id]: r_array
+        }
+      };
+    case HANDLE_CHECKBOX:
+      const checked_users = state.users;
+      checked_users[action.index]['checked'] = action.checked;
+      return {
+        ...state,
+        users: checked_users
       };
     default:
       return state;

@@ -39,7 +39,8 @@ const styles = {
     marginRight: 3
   },
   title: {
-    fontSize: '28px'
+    fontSize: '28px',
+    flex: 1
   }
 };
 
@@ -127,7 +128,7 @@ class AppFrame extends Component {
 
             <Button
               color="inherit"
-              className={[classes.flex, classes.title]}
+              className={classes.title}
               onClick={this.props.pushToHome}
             >
               <Typography variant="title" color="inherit">
