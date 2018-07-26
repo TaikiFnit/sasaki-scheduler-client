@@ -79,9 +79,6 @@ export function createEvent(formData) {
     );
     const mode = 'cors';
 
-    console.log('stringify');
-    console.log(body);
-
     return fetch(base_url + '/events/add', {
       method,
       headers,
