@@ -40,10 +40,37 @@ const styles = theme => ({
   },
   container: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    flexDirection: 'column'
+  },
+  rowContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexSirection: 'row'
   },
   chip: {
     margin: theme.spacing.unit
+  },
+  paper: {
+    minHeight: '50px',
+    width: '100%',
+    flex: 1,
+    padding: '5px'
+  },
+  calendar: {
+    marginRight: '30px'
+  },
+  sectionHeading: {
+    fontSize: '18px',
+    marginTop: '40px',
+    marginBottom: '20px'
+  },
+  sectionHeadingWithSecondlyText: {
+    fontSize: '18px',
+    marginTop: '40px'
+  },
+  button: {
+    marginTop: '80px'
   }
 });
 
@@ -74,15 +101,17 @@ class CreateEvent extends Component {
             <form className={classes.container} noValidate autoComplete="off">
               <TextField
                 id="title"
-                label="Title"
+                label="イベント名"
                 className={classes.textField}
                 value={createEventData.form.title}
                 onChange={this.props.handleFormChange('title')}
                 margin="normal"
               />
               <TextField
+                rows="8"
+                multiline={true}
                 id="description"
-                label="Description"
+                label="概要"
                 className={classes.textField}
                 value={createEventData.form.description}
                 onChange={this.props.handleFormChange('description')}
@@ -91,7 +120,7 @@ class CreateEvent extends Component {
 
               <TextField
                 select
-                label="Event Type"
+                label="イベントタイプ"
                 value={createEventData.form.event_type_id}
                 className={classes.textField}
                 onChange={this.props.handleFormChange('event_type_id')}
@@ -106,7 +135,7 @@ class CreateEvent extends Component {
 
               <TextField
                 id="locale"
-                label="Locale"
+                label="開催場所"
                 className={classes.textField}
                 value={createEventData.form.locale}
                 onChange={this.props.handleFormChange('locale')}
@@ -114,7 +143,7 @@ class CreateEvent extends Component {
               />
               <TextField
                 id="deadline"
-                label="Register Deadline"
+                label="入力期限日"
                 type="date"
                 InputLabelProps={{
                   shrink: true
@@ -124,35 +153,67 @@ class CreateEvent extends Component {
                 onChange={this.props.handleFormChange('deadline')}
                 margin="normal"
               />
-              <Paper className={classes.root}>
-                {createEventData.form.dates.map((date, index) => (
-                  <Chip
-                    key={index}
-                    label={date.prospective_date}
-                    className={classes.chip}
-                    onDelete={this.props.handleFormArrayRemove('dates', index)}
-                  />
-                ))}
-              </Paper>
 
-              <Calendar onChange={this.props.handleDateChange} />
+              <Typography
+                className={classes.sectionHeading}
+                variant="headline"
+                component="h3"
+              >
+                開催候補日を選択
+              </Typography>
 
-              <FormGroup row>
-                {createEventData.users.map((user, index) => {
-                  return (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={user.checked}
-                          onChange={this.props.handleCheckbox(index)}
-                          color="primary"
-                        />
-                      }
-                      label={user.name}
+              <div className={classes.rowContainer}>
+                <Calendar
+                  onChange={this.props.handleDateChange}
+                  className={classes.calendar}
+                />
+
+                <Paper className={classes.paper}>
+                  {createEventData.form.dates.map((date, index) => (
+                    <Chip
+                      key={index}
+                      label={date.prospective_date}
+                      className={classes.chip}
+                      onDelete={this.props.handleFormArrayRemove(
+                        'dates',
+                        index
+                      )}
                     />
-                  );
-                })}
-              </FormGroup>
+                  ))}
+                </Paper>
+              </div>
+
+              <Typography
+                className={classes.sectionHeadingWithSecondlyText}
+                variant="headline"
+                component="h3"
+              >
+                参加者を選択
+              </Typography>
+              <Typography color="textSecondary" className={classes.typography}>
+                参加者を選択すると自動でイベント開催のメールが送信されます.
+                参加者を選択しなくても出席登録は可能です.
+              </Typography>
+
+              <Paper className={classes.paper}>
+                <FormGroup row>
+                  {createEventData.users.map((user, index) => {
+                    return (
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={user.checked}
+                            onChange={this.props.handleCheckbox(index)}
+                            color="primary"
+                            className
+                          />
+                        }
+                        label={user.name}
+                      />
+                    );
+                  })}
+                </FormGroup>
+              </Paper>
 
               <Button
                 variant="contained"
