@@ -32,8 +32,13 @@ function getResponseNewEvent(json) {
         })
       : [];
 
+  const grades =
+    json.status === true
+      ? json.grades.map(grade => ({ name: grade, checked: false }))
+      : [];
+
   const res =
-    json.status == true ? { eventTypes: json.event_types, users } : {};
+    json.status == true ? { eventTypes: json.event_types, users, grades } : {};
 
   if (json.status === true && res.users.length !== 0) {
     const users = res.users.map(user => {});
@@ -127,9 +132,10 @@ export function handleFormArrayRemove(id, index) {
 }
 
 export const HANDLE_CHECKBOX = 'HANDLE_CHECKBOX';
-export function handleCheckbox(index, checked) {
+export function handleCheckbox(id, index, checked) {
   return {
     type: HANDLE_CHECKBOX,
+    id,
     index,
     checked
   };

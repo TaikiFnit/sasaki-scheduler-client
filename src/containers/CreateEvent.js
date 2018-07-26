@@ -45,17 +45,20 @@ function mapDispatchToProps(dispatch) {
     handleFromArrayAdd: (id, obj) => ev => {
       dispatch(handleFormArrayAdd(id, obj));
     },
-    handleCheckbox: userId => ev => {
-      console.log(userId);
-      console.log(ev.target.checked);
-      dispatch(handleCheckbox(userId, ev.target.checked));
+    handleCheckbox: (id, index) => ev => {
+      dispatch(handleCheckbox(id, index, ev.target.checked));
     },
     clickedCreate: (createEventData, auth) => ev => {
-      console.log(createEventData);
-      console.log(auth);
-
-      const user_ids = createEventData.users.map(user => user.id);
-      const formData = { ...createEventData.form, user_ids };
+      const sendable_users = createEventData.users.filter(
+        user => user.checked === true
+      );
+      const sendable_grades = createEventData.grades.filter(
+        grade => grade.checked === true
+      );
+      const user_ids = sendable_users.map(user => user.id);
+      const grades = sendable_grades.map(grade => grade.name);
+      const formData = { ...createEventData.form, user_ids, grades };
+      console.log(formData);
 
       dispatch(createEvent(formData));
     }

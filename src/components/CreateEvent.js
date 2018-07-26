@@ -38,6 +38,9 @@ const styles = theme => ({
   heading: {
     fontSize: '24px'
   },
+  subheading: {
+    marginTop: '10px'
+  },
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -83,6 +86,7 @@ class CreateEvent extends Component {
 
   render() {
     const { classes, createEventData } = this.props;
+
     return (
       <div className={classes.root}>
         <Card className={classes.card}>
@@ -195,7 +199,41 @@ class CreateEvent extends Component {
                 参加者を選択しなくても出席登録は可能です.
               </Typography>
 
-              <Paper className={classes.paper}>
+              <Paper
+                className={classes.paper}
+                style={{ paddingLeft: '20px', marginBottom: '20px' }}
+              >
+                <Typography variant="subheading" className={classes.subheading}>
+                  学年で指定
+                </Typography>
+
+                <FormGroup row>
+                  {createEventData.grades.map((grade, index) => {
+                    return (
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={grade.checked}
+                            onChange={this.props.handleCheckbox(
+                              'grades',
+                              index
+                            )}
+                            color="primary"
+                            className
+                          />
+                        }
+                        label={grade.name}
+                      />
+                    );
+                  })}
+                </FormGroup>
+              </Paper>
+
+              <Paper className={classes.paper} style={{ paddingLeft: '20px' }}>
+                <Typography variant="subheading" className={classes.subheading}>
+                  個別で指定
+                </Typography>
+
                 <FormGroup row>
                   {createEventData.users.map((user, index) => {
                     return (
@@ -203,7 +241,7 @@ class CreateEvent extends Component {
                         control={
                           <Checkbox
                             checked={user.checked}
-                            onChange={this.props.handleCheckbox(index)}
+                            onChange={this.props.handleCheckbox('users', index)}
                             color="primary"
                             className
                           />

@@ -17,10 +17,12 @@ const initialState = {
     event_type_id: 1,
     dates: [],
     user_ids: [],
-    deadline: ''
+    deadline: '',
+    grades: []
   },
   eventTypes: [],
   users: [],
+  grades: [],
   isPosting: false,
   isPosted: false
 };
@@ -36,12 +38,14 @@ export default function createEventReducer(state = initialState, action) {
       const users = 'users' in action ? { users: action.users } : {};
       const eventTypes =
         'eventTypes' in action ? { eventTypes: action.eventTypes } : {};
+      const grades = 'grades' in action ? { grades: action.grades } : {};
 
       return {
         ...state,
         isFetching: false,
         ...users,
-        ...eventTypes
+        ...eventTypes,
+        ...grades
       };
     case POST_REQUEST_NEW_EVENT:
       return {
@@ -84,11 +88,11 @@ export default function createEventReducer(state = initialState, action) {
         }
       };
     case HANDLE_CHECKBOX:
-      const checked_users = state.users;
-      checked_users[action.index]['checked'] = action.checked;
+      const checked = state[action.id];
+      checked[action.index]['checked'] = action.checked;
       return {
         ...state,
-        users: checked_users
+        [action.id]: checked
       };
     default:
       return state;
