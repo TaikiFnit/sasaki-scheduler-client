@@ -103,14 +103,21 @@ class AppFrame extends Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
             <MenuItem
               onClick={() => {
-                this.props.pushToCreateEvent();
+                this.props.pushTo('/createEvent');
                 this.handleClose();
               }}
             >
               Create New Event
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                this.props.pushTo('/feedbacks');
+                this.handleClose();
+              }}
+            >
+              Send FeedBack
             </MenuItem>
             <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
           </Menu>

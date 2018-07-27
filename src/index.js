@@ -6,6 +6,7 @@ import Home from './containers/Home';
 import CreateEvent from './containers/CreateEvent';
 import EventList from './containers/EventList';
 import EventDetail from './containers/EventDetail';
+import Feedback from './containers/Feedback';
 import { Route, Switch } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
@@ -29,6 +30,7 @@ ReactDOM.render(
           <Route exact path="/" component={Home} />
           <Route exact path="/events/" component={EventList} />
           <Route exact path="/createEvent" component={CreateEvent} />
+          <Route exact path="/feedbacks" component={Feedback} />
           <Route path="/events/:id" component={EventDetail} />
         </ConnectedSwitch>
       </AppFrame>
