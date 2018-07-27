@@ -10,8 +10,14 @@ function postRequestNewEvent() {
 
 export const POST_RESPONSE_NEW_EVENT = 'POST_RESPONSE_NEW_EVENT';
 function postResponseNewEvent(json) {
+  let obj = {};
+
+  if (json.status === true) {
+    obj = { new_event_id: json.event.id };
+  }
   return {
-    type: POST_RESPONSE_NEW_EVENT
+    type: POST_RESPONSE_NEW_EVENT,
+    ...obj
   };
 }
 
@@ -19,6 +25,13 @@ export const GET_REQUEST_NEW_EVENT = 'GET_REQUEST_NEW_EVENT';
 function getRequestNewEvent() {
   return {
     type: GET_REQUEST_NEW_EVENT
+  };
+}
+
+export const INIT = 'INIT';
+export function initAll() {
+  return {
+    type: INIT
   };
 }
 

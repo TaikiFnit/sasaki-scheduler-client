@@ -6,7 +6,8 @@ import {
   HANDLE_FORM_CHANGE,
   HANDLE_FORM_ARRAY_ADD,
   HANDLE_FORM_ARRAY_REMOVE,
-  HANDLE_CHECKBOX
+  HANDLE_CHECKBOX,
+  INIT
 } from '../actions/create_event.js';
 
 const initialState = {
@@ -27,7 +28,8 @@ const initialState = {
   grades: [],
   feedbacks: [],
   isPosting: false,
-  isPosted: false
+  isPosted: false,
+  new_event_id: null
 };
 
 export default function createEventReducer(state = initialState, action) {
@@ -57,11 +59,18 @@ export default function createEventReducer(state = initialState, action) {
         isFetching: true,
         isPosted: false
       };
+
+    case INIT:
+      return initialState;
+
     case POST_RESPONSE_NEW_EVENT:
+      let obj =
+        'new_event_id' in action ? { new_event_id: action.new_event_id } : {};
       return {
         ...state,
         isFetching: false,
-        isPosted: true
+        isPosted: true,
+        ...obj
       };
     case HANDLE_FORM_CHANGE:
       let form = state.form;

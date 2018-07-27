@@ -6,7 +6,8 @@ import {
   handleFormChange,
   handleFormArrayAdd,
   handleFormArrayRemove,
-  handleCheckbox
+  handleCheckbox,
+  initAll
 } from '../actions/create_event';
 import { push } from 'react-router-redux';
 
@@ -64,6 +65,10 @@ function mapDispatchToProps(dispatch) {
       const formData = { ...createEventData.form, user_ids, grades };
 
       dispatch(createEvent(formData));
+    },
+    pushToWithInit(url) {
+      dispatch(initAll());
+      dispatch(push(url));
     }
   };
 }

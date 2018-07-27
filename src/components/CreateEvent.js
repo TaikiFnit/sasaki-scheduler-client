@@ -103,6 +103,9 @@ class CreateEvent extends Component {
       feedback => feedback.event_type_id === selectedType.id
     );
 
+    if (createEventData.isPosted === true) {
+      this.props.pushToWithInit('/events/' + createEventData.new_event_id);
+    }
     return (
       <div className={classes.root}>
         <Card className={classes.card}>
