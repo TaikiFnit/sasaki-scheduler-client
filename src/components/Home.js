@@ -36,7 +36,11 @@ export default class Home extends Component {
       <div>
         {events.events.map(event => {
           return (
-            <HomeEventCard event={event} pushToEvent={this.props.pushToEvent} />
+            <HomeEventCard
+              event={event}
+              pushToEvent={this.props.pushToEvent}
+              auth={this.props.auth}
+            />
           );
         })}
         {circle}

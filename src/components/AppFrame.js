@@ -109,7 +109,7 @@ class AppFrame extends Component {
                 this.handleClose();
               }}
             >
-              Create New Event
+              イベントを作成する
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -117,9 +117,9 @@ class AppFrame extends Component {
                 this.handleClose();
               }}
             >
-              Send FeedBack
+              フィードバックを送る
             </MenuItem>
-            <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={this.handleLogout}>ログアウト</MenuItem>
           </Menu>
         </div>
       );

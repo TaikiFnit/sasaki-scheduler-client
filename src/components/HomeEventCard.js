@@ -13,18 +13,34 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
+
 const styles = {
   card: {
     minWidth: 275
+  },
+  table: {
+    marginBottom: '40px',
+    fontSize: '18px'
   },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
     transform: 'scale(0.8)'
   },
-  title: {
+  type: {
     marginBottom: 16,
     fontSize: 14
+  },
+  typography: {
+    marginBottom: 8
+  },
+  paragraph: {
+    fontSize: '18px'
+  },
+  heading: {
+    fontSize: '24px'
   },
   pos: {
     marginBottom: 12
@@ -32,43 +48,71 @@ const styles = {
   root: {
     width: '80%',
     margin: '60px auto'
+  },
+  prospectiveDate: {
+    fontSize: '22px',
+    borderRadius: '100px',
+    background: '#4CAF50',
+    color: 'white',
+    textAlign: 'center',
+    padding: '10px'
+  },
+  tableCell: {
+    paddingTop: '15px',
+    paddingBottom: '15px',
+    fontSize: '18px'
+  },
+  endOfSection: {
+    marginBottom: '40px'
+  },
+  chip: {
+    margin: '6px',
+    background: '#EEEEEE'
   }
 };
 
 function HomeEventCard(props) {
-  const { classes, event, pushToEvent } = props;
+  const { classes, event, pushToEvent, auth } = props;
+  const deadline = new Date(event.deadline);
+  const donedPersons =
+    event.event_dates.length === 0
+      ? 0
+      : event.event_dates[0].event_date_users.length;
+
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
         <CardContent>
-          <Typography className={classes.title} color="textSecondary">
+          <Typography className={classes.type} color="textSecondary">
             {event.event_type.name}
           </Typography>
-          <Typography variant="headline" component="h2">
-            {event.title}
+          <Typography
+            className={classes.typography}
+            variant="headline"
+            component="h2"
+          >
+            「{event.title}」の出席登録受付中
           </Typography>
-          <Typography color="textSecondary">{event.description}</Typography>
 
-          <Table className={classes.table}>
-            <TableBody>
-              {event.event_dates.map(date => {
-                const d = new Date(date.prospective_date);
-
-                return (
-                  <TableRow>
-                    <TableCell>
-                      {d.getMonth()} / {d.getDate()}
-                    </TableCell>
-                    <TableCell>{date.event_date_users.length}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+          <Typography
+            color="textSecondary"
+            className={[classes.typography, classes.paragraph]}
+          >
+            入力期限日は {deadline.getFullYear()}/{deadline.getMonth()}/{deadline.getDate()}{' '}
+            までです
+          </Typography>
+          <Typography color="textSecondary" className={classes.paragraph}>
+            現在, {event.users.length}人中, {donedPersons}の出席登録が終わりました.
+          </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={() => pushToEvent(event.id)}>
-            See Detail
+          <Button
+            size="large"
+            variant="contained"
+            color="primary"
+            onClick={() => pushToEvent(event.id)}
+          >
+            イベントページへ
           </Button>
         </CardActions>
       </Card>

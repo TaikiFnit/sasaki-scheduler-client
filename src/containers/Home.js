@@ -3,8 +3,8 @@ import Home from '../components/Home';
 import { fetchEvents } from '../actions/events';
 import { push } from 'react-router-redux';
 
-function mapStateToProps({ events, router }) {
-  return { events, router };
+function mapStateToProps({ events, router, auth }) {
+  return { events, router, auth };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -18,4 +18,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
