@@ -138,7 +138,7 @@ class Feedback extends Component {
                   auth.auth
                 )}
               >
-                フィードフォワードを送る
+                フィードバックを送る
               </Button>
             </form>
           </CardContent>

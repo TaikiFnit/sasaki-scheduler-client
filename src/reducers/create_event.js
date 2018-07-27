@@ -23,6 +23,7 @@ const initialState = {
   eventTypes: [],
   users: [],
   grades: [],
+  feedbacks: [],
   isPosting: false,
   isPosted: false
 };
@@ -45,7 +46,8 @@ export default function createEventReducer(state = initialState, action) {
         isFetching: false,
         ...users,
         ...eventTypes,
-        ...grades
+        ...grades,
+        feedbacks: action.feedbacks
       };
     case POST_REQUEST_NEW_EVENT:
       return {

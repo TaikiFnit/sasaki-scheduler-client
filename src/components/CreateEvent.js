@@ -20,6 +20,14 @@ import Paper from '@material-ui/core/Paper';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = theme => ({
   card: {
@@ -80,12 +88,19 @@ const styles = theme => ({
 class CreateEvent extends Component {
   constructor(props) {
     super(props);
-    //this.props.createEvent(formData this.props.auth.auth);
     this.props.fetchCreateEventData();
   }
 
   render() {
     const { classes, createEventData } = this.props;
+
+    const selectedTypes = createEventData.eventTypes.filter(
+      type => type.id === createEventData.form.event_type_id
+    );
+    const selectedType = selectedTypes.length !== 0 ? selectedTypes[0] : {};
+    const selectedFeedbacks = createEventData.feedbacks.filter(
+      feedback => feedback.event_type_id === selectedType.id
+    );
 
     return (
       <div className={classes.root}>
@@ -136,6 +151,41 @@ class CreateEvent extends Component {
                   </MenuItem>
                 ))}
               </TextField>
+
+              <ExpansionPanel disabled={selectedFeedbacks.length === 0}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>
+                    {selectedType.name} に関するフィードバック{selectedFeedbacks.length ===
+                    0
+                      ? 'はありません.'
+                      : `が${selectedFeedbacks.length}件あります.`}
+                  </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <List>
+                    {selectedFeedbacks.map(feedback => {
+                      const image =
+                        feedback.user.picture == null ? (
+                          <AccountCircleIcon />
+                        ) : (
+                          <Avatar src={feedback.user.picture} />
+                        );
+                      const date = new Date(feedback.created);
+                      return (
+                        <ListItem>
+                          {image}
+                          <ListItemText
+                            primary={feedback.body}
+                            secondary={` ${
+                              feedback.user.name
+                            } ${date.getFullYear()}/${date.getMonth()}/${date.getDate()}投稿`}
+                          />
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
 
               <TextField
                 id="locale"

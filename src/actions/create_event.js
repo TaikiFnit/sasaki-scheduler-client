@@ -38,7 +38,14 @@ function getResponseNewEvent(json) {
       : [];
 
   const res =
-    json.status == true ? { eventTypes: json.event_types, users, grades } : {};
+    json.status == true
+      ? {
+          eventTypes: json.event_types,
+          users,
+          grades,
+          feedbacks: json.feedbacks
+        }
+      : {};
 
   if (json.status === true && res.users.length !== 0) {
     const users = res.users.map(user => {});
