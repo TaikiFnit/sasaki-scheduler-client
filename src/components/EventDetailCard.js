@@ -109,7 +109,7 @@ function EventDetailCard(props) {
               classes.paragraph
             ]}
           >
-            入力期限日: {deadline.getFullYear()}/{deadline.getMonth()}/{deadline.getDate()}
+            入力期限日: {deadline.getFullYear()}/{deadline.getMonth() + 1}/{deadline.getDate()}
           </Typography>
 
           <Typography
@@ -140,7 +140,7 @@ function EventDetailCard(props) {
                   <TableRow className={classes.prospectiveRow}>
                     <TableCell className={classes.tableCell}>
                       <Typography className={classes.prospectiveDate}>
-                        {pro_date.getMonth()}/{pro_date.getDate()}
+                        {pro_date.getMonth() + 1}/{pro_date.getDate()}
                       </Typography>
                     </TableCell>
                     <TableCell className={classes.tableCell}>
@@ -168,9 +168,9 @@ function EventDetailCard(props) {
             <TableHead>
               <TableRow>
                 <TableCell className={classes.tableCell}>日付</TableCell>
-                <TableCell className={classes.tableCell}>参加可</TableCell>
-                <TableCell className={classes.tableCell}>未定</TableCell>
                 <TableCell className={classes.tableCell}>参加不可</TableCell>
+                <TableCell className={classes.tableCell}>未定</TableCell>
+                <TableCell className={classes.tableCell}>参加可</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -197,7 +197,7 @@ function EventDetailCard(props) {
                 return (
                   <TableRow>
                     <TableCell className={classes.tableCell}>
-                      {pro_date.getMonth()}/{pro_date.getDate()}
+                      {pro_date.getMonth() + 1}/{pro_date.getDate()}
                     </TableCell>
                     {userChips}
                   </TableRow>

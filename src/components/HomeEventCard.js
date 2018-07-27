@@ -98,7 +98,7 @@ function HomeEventCard(props) {
             color="textSecondary"
             className={[classes.typography, classes.paragraph]}
           >
-            入力期限日は {deadline.getFullYear()}/{deadline.getMonth()}/{deadline.getDate()}{' '}
+            入力期限日は {deadline.getFullYear()}/{deadline.getMonth() + 1}/{deadline.getDate()}{' '}
             までです
           </Typography>
           <Typography color="textSecondary" className={classes.paragraph}>
