@@ -28,6 +28,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Switch from '@material-ui/core/Switch';
 
 const styles = theme => ({
   card: {
@@ -279,7 +280,10 @@ class CreateEvent extends Component {
                 </FormGroup>
               </Paper>
 
-              <Paper className={classes.paper} style={{ paddingLeft: '20px' }}>
+              <Paper
+                className={classes.paper}
+                style={{ paddingLeft: '20px', marginBottom: '20px' }}
+              >
                 <Typography variant="subheading" className={classes.subheading}>
                   個別で指定
                 </Typography>
@@ -302,6 +306,28 @@ class CreateEvent extends Component {
                   })}
                 </FormGroup>
               </Paper>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={createEventData.form.should_send}
+                    onChange={this.props.handleSwitchChange('should_send')}
+                    value="should_send"
+                    color="primary"
+                  />
+                }
+                label="イベント作成時に参加者にメールで通知する"
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={createEventData.form.should_remind}
+                    onChange={this.props.handleSwitchChange('should_remind')}
+                    value="should_remind"
+                    color="primary"
+                  />
+                }
+                label="入力期限日に未入力のユーザーに対してリマインドメールを送る"
+              />
 
               <Button
                 variant="contained"
@@ -312,7 +338,7 @@ class CreateEvent extends Component {
                   this.props.auth
                 )}
               >
-                Create
+                イベントを作成する
               </Button>
             </form>
           </CardContent>

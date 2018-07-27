@@ -15,6 +15,8 @@ const initialState = {
     description: '',
     locale: '',
     event_type_id: 1,
+    should_send: false,
+    should_remind: false,
     dates: [],
     user_ids: [],
     deadline: '',

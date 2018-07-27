@@ -33,6 +33,10 @@ function mapDispatchToProps(dispatch) {
 
       dispatch(handleFormChange(id, value));
     },
+    handleSwitchChange: id => ev => {
+      const checked = ev.target.checked;
+      dispatch(handleFormChange(id, checked));
+    },
     handleDateChange: value => {
       const date = {
         prospective_date: `${value.getFullYear()}/${value.getMonth()}/${value.getDate()}`
@@ -58,7 +62,6 @@ function mapDispatchToProps(dispatch) {
       const user_ids = sendable_users.map(user => user.id);
       const grades = sendable_grades.map(grade => grade.name);
       const formData = { ...createEventData.form, user_ids, grades };
-      console.log(formData);
 
       dispatch(createEvent(formData));
     }
