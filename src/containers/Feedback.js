@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Feedback from '../components/Feedback';
 import { fetchCreateEventData } from '../actions/create_event';
-import { postFeedBack, handleFormChange } from '../actions/feedback';
+import { postFeedBack, handleFormChange, initAll } from '../actions/feedback';
 import { push } from 'react-router-redux';
 
 function mapStateToProps({ auth, createEventData, feedBack }) {
@@ -30,6 +30,9 @@ function mapDispatchToProps(dispatch) {
       const value = ev.target.value;
 
       dispatch(handleFormChange(id, value));
+    },
+    initAll() {
+      dispatch(initAll());
     }
   };
 }

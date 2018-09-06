@@ -5,12 +5,12 @@ export const POST_FEEDBACK_REQUEST = 'POST_FEEDBACK_REQUEST';
 function postFeedbackRequest() {
   return {
     type: POST_FEEDBACK_REQUEST,
-    isPosting: false,
+    isPosting: true,
     isPosted: false
   };
 }
 
-export const POST_FEEDBACK_RESPONSE = 'POST_FEEDBACK_REQUEST';
+export const POST_FEEDBACK_RESPONSE = 'POST_FEEDBACK_RESPONSE';
 function postFeedbackResponse(json) {
   return {
     type: POST_FEEDBACK_RESPONSE,
@@ -50,5 +50,12 @@ export function handleFormChange(id, value) {
     type: HANDLE_FORM_CHANGE,
     id,
     value
+  };
+}
+
+export const INIT = 'INIT';
+export function initAll() {
+  return {
+    type: INIT
   };
 }

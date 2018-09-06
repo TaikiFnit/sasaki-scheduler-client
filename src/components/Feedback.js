@@ -86,6 +86,11 @@ class Feedback extends Component {
   render() {
     const { classes, createEventData, feedBack, auth } = this.props;
 
+    console.log(feedBack);
+    if (feedBack.isPosted === true) {
+      this.props.initAll();
+    }
+
     return (
       <div className={classes.root}>
         <Card className={classes.card}>

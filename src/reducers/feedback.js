@@ -1,7 +1,8 @@
 import {
   HANDLE_FORM_CHANGE,
   POST_FEEDBACK_RESPONSE,
-  POST_FEEDBACK_REQUEST
+  POST_FEEDBACK_REQUEST,
+  INIT
 } from '../actions/feedback.js';
 
 const initialState = {
@@ -19,6 +20,20 @@ export default function createEventReducer(state = initialState, action) {
         ...state,
         [action.id]: action.value
       };
+    case POST_FEEDBACK_REQUEST:
+      return {
+        ...state,
+        isPosting: action.isPosting,
+        isPosted: action.isPosted
+      };
+    case POST_FEEDBACK_RESPONSE:
+      return {
+        ...state,
+        isPosting: action.isPosting,
+        isPosted: action.isPosted
+      };
+    case INIT:
+      return initialState;
     default:
       return state;
   }
